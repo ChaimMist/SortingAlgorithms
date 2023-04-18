@@ -1,5 +1,25 @@
-public class Main {
+import javax.swing.*;
+import java.awt.*;
+
+public class Main extends JFrame {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        new Main();
     }
+
+    public Main() {
+        JFrame frame = new JFrame("Algorithm Visualization");
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setSize(Definitions.WIN_DIM);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(null);
+        InterfacePanel panel = new InterfacePanel();
+        frame.getContentPane().add(panel);
+
+
+        frame.setVisible(true);
+
+    }
+
+
 }
