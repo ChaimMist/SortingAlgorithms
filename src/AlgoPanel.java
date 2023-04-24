@@ -3,6 +3,7 @@ import javax.swing.border.Border;
 
 import java.awt.*;
 
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 
 public class AlgoPanel extends JPanel {
@@ -69,17 +70,13 @@ public class AlgoPanel extends JPanel {
             while (swapped) {
                 counter++;
                 swapped = false;
-                for (int i = 0; i < array.length - 1; i++) {
+                for (int i = 0; i < array.length - counter; i++) {
                     if (!runAlgo)
                         return;
                     if (array[i + 1] < array[i]) {
-                        try {
-                            swapButtons(buttons[i], buttons[i + 1]);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-//                        changeColor(buttons[i], Color.RED);
-
+                        swapButtons(buttons[i], buttons[i + 1]);
+                        buttons[i].setBackground(Definitions.LIGHT_BLUE);
+                        buttons[i+1].setBackground(Definitions.LIGHT_BLUE);
 
                         // swap the elements
                         int temp = array[i + 1];
@@ -90,103 +87,100 @@ public class AlgoPanel extends JPanel {
                         JButton tempButton = buttons[i + 1];
                         buttons[i + 1] = buttons[i];
                         buttons[i] = tempButton;
-
                         swapped = true;
 
                     }
                 }
-                buttons[buttons.length-counter].setBackground(new Color(93, 231, 30));
+                buttons[buttons.length - counter].setBackground(Color.GREEN);
             }
+            for (int i =0; i< buttons.length-counter; i++)
+                buttons[i].setBackground(Color.GREEN);
+
         }).start();
     }
 
-    private void swapButtons(JButton button, JButton button1) throws InterruptedException {
+    private void swapButtons(JButton button, JButton button1) {
         button.setBackground(Color.RED);
         button1.setBackground(Color.RED);
         CountDownLatch latch = new CountDownLatch(2);
-        System.out.println("starting");
 
         new Thread(() -> {
-            Point bound = new Point(button.getX(), button.getY());
-            for (int i = 0; i < 50; i++) {
-
-                button.setBounds(bound.x, bound.y - i, 90, 90);
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            bound = new Point(button.getX(), button.getY());
-            for (int i = 0; i < 100; i++) {
-                button.setBounds(bound.x + i, bound.y, 90, 90);
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            bound = new Point(button.getX(), button.getY());
-            for (int i = 0; i < 50; i++) {
-                button.setBounds(bound.x , bound.y + i, 90, 90);
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            moveUp(50, button);
+            moveRight(100, button);
+            moveDown(50, button);
             latch.countDown();
 
         }).start();
 
         new Thread(() -> {
-            Point bound = new Point(button1.getX(), button1.getY());
-            for (int i = 0; i < 50; i++) {
-                button1.setBounds(bound.x, bound.y + i, 90, 90);
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            bound = new Point(button1.getX(), button1.getY());
-            for (int i = 0; i < 100; i++) {
-                button1.setBounds(bound.x - i, bound.y, 90, 90);
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            bound = new Point(button1.getX(), button1.getY());
-
-            for (int i = 0; i< 50; i++){
-                button1.setBounds(bound.x, bound.y-i, 90, 90);
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
+            moveDown(50, button1);
+            moveLeft(100, button1);
+            moveUp(50, button1);
             latch.countDown();
-
         }).start();
-    latch.await();
-        System.out.println("end");
 
+        try {
+            latch.await();
+        }catch (Exception ignored){}
+    }
+
+
+    private void moveLeft(int amount, JComponent component) {
+        for (int i = 0; i < amount; i++) {
+            component.setBounds(component.getX() - 1, component.getY(), 90, 90);
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void moveRight(int amount, JComponent component) {
+        for (int i = 0; i < amount; i++) {
+            component.setBounds(component.getX() + 1, component.getY(), 90, 90);
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void moveUp(int amount, JComponent component) {
+        for (int i = 0; i < amount; i++) {
+            component.setBounds(component.getX(), component.getY() - 1, 90, 90);
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void moveDown(int amount, JComponent component) {
+        for (int i = 0; i < amount; i++) {
+            component.setBounds(component.getX(), component.getY() + 1, 90, 90);
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
 
 //        int radius = (button1.getX() - button.getX()) / 2;
-//        Point mid = new Point((button1.getX() - button.getX()) / 2 + button.getX(), button1.getY());
+//        Point mid = new Point((button1.getX() - button.getX()) / 2 + button.getX(), button1.getY() + button.getHeight()/2);
 //        JButton test = new JButton("awd");
-//        test.setBounds(mid.x,mid.y, 5,5);
+//        test.setBounds(mid.x, mid.y, 5, 5);
 //        test.setVisible(true);
 //        test.requestFocus();
 //        this.add(test);
 //        ArrayList<Point> pointArr = new ArrayList<>();
 //        Point temp1 = new Point(0, radius);
 //        int delta = 1 - radius;
-
+//
 //        do {
 //            temp1.x += 1;
 //            if (delta < 0) {
@@ -203,31 +197,31 @@ public class AlgoPanel extends JPanel {
 //        System.out.println(mid);
 //
 //
-//
-//
 //        new Thread(() -> {
-//        for (Point point : pointArr) {
-//            System.out.println(point.toString());
-//            button.setBounds(mid.x - point.y, mid.y - point.x, 90, 90);
-//            try {
-//                Thread.sleep(10);
-//            } catch (InterruptedException e) {
-//                throw new RuntimeException(e);
+//            for (Point point : pointArr) {
+//                System.out.println(point.toString());
+//                button.setBounds(mid.x - point.y, mid.y - point.x, 90, 90);
+//                try {
+//                    Thread.sleep(10);
+//                } catch (InterruptedException e) {
+//                    throw new RuntimeException(e);
+//                }
 //            }
-//        }
+//
+//        }).start();
 
-    }
 
     private void paintArrayBoxes(int[] array) {
         buttons = new JButton[array.length];
+
+
         for (int i = 0; i < array.length; i++) {
             buttons[i] = new JButton(String.valueOf(array[i]));
             buttons[i].setBounds(i * 100 + 50, 250, 90, 90);
             buttons[i].setForeground(Color.WHITE);
             buttons[i].setFont(new Font("David", Font.BOLD, 20));
-            buttons[i].setBackground(new Color(34, 182, 182, 187));
+            buttons[i].setBackground(Definitions.LIGHT_BLUE);
             this.add(buttons[i]);
-//            buttons[i].setEnabled(false);
             buttons[i].setFocusPainted(false);
             buttons[i].setVisible(true);
             buttons[i].requestFocus();
@@ -235,6 +229,9 @@ public class AlgoPanel extends JPanel {
     }
 
     public void resetArray() {
+        if (buttons.length == 0) {
+            return;
+        }
         for (JButton b : buttons) {
             b.setVisible(false);
             this.remove(b);

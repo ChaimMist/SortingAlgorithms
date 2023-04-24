@@ -72,6 +72,7 @@ public class InterfacePanel extends JPanel implements ActionListener {
 
     public int[] stringToArray(String input) {
 
+
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == ' ')
                 continue;
@@ -87,6 +88,13 @@ public class InterfacePanel extends JPanel implements ActionListener {
         for (int i = 0; i < array.length; i++) {
             intArray[i] = Integer.parseInt(array[i]);
         }
+
+
+        if (9 < intArray.length) {
+            JOptionPane.showMessageDialog(null, "Please enter up to 9 numbers.");
+            return null;
+        }
+
         return intArray;
     }
 
