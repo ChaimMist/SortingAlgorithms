@@ -23,7 +23,7 @@ public class InterfacePanel extends JPanel implements ActionListener {
 
         //Create title
         this.title.setBounds(Definitions.WIN_DIM.width / 2 - 225, 0, 450, 200);
-        this.title.setFont(new Font("Arial", Font.BOLD,30));
+        this.title.setFont(new Font("Arial", Font.BOLD, 30));
         this.title.setForeground(Color.WHITE);
 
 
@@ -111,6 +111,7 @@ public class InterfacePanel extends JPanel implements ActionListener {
                     input.setForeground(Color.BLACK);
                 }
             }
+
             @Override
             public void focusLost(FocusEvent e) {
                 if (input.getText().isEmpty()) {
@@ -133,7 +134,7 @@ public class InterfacePanel extends JPanel implements ActionListener {
         algo1Panel.startAlgo(array);
     }
 
-    public void stopSorting(){
+    public void stopSorting() {
         algo1Panel.resetArray();
     }
 

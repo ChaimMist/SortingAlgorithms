@@ -86,7 +86,6 @@ public class AlgoPanel extends JPanel {
                         buttons[i + 1] = buttons[i];
                         buttons[i] = tempButton;
                         swapped = true;
-
                     }
                 }
                 buttons[buttons.length - counter].setBackground(Color.GREEN);
