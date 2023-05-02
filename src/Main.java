@@ -19,8 +19,10 @@ public class Main extends JFrame {
         frame.getContentPane().add(panel);
 
         frame.setVisible(true);
-
     }
+
+
+
 
 
 }

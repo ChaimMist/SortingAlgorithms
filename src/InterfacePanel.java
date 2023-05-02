@@ -10,6 +10,8 @@ import java.awt.event.FocusListener;
 public class InterfacePanel extends JPanel implements ActionListener {
     private final String[] algoList = {"Bubble Sort", "Insertion Sort", "Selection Sort", "Merge Sort", "Quick Sort"};
     private JComboBox<String> algoSelector2;
+    private JButton startButton;
+    private JButton stopButton;
     private JComboBox<String> algoSelector1;
     private int[] array;
     private final AlgoPanel algo1Panel;
@@ -175,5 +177,27 @@ public class InterfacePanel extends JPanel implements ActionListener {
             case "Stop":
                 stopSorting();
         }
+    }
+
+
+    @Override
+    public void validate() {
+        super.validate();
+        Def.WIN_DIM = new Dimension(Main.frame.getWidth(), Main.frame.getHeight());
+        this.setBounds(0, 0, Def.WIN_DIM.width, Def.WIN_DIM.height);
+        headerPanel.setBounds(0, 0, this.getWidth(), this.getHeight() / 5);
+        footerPanel.setBounds(0, (this.getHeight() / 5) * 4, this.getWidth(), this.getHeight() / 5);
+        this.title.setBounds(this.getWidth() / 2 - 225, 0, 450, 200);
+        input.setBounds(footerPanel.getWidth() / 2 - 200, 3 * (footerPanel.getHeight() / 6), 400, 50);
+        startButton.setBounds((footerPanel.getWidth() / 2) - 200, (footerPanel.getHeight() / 6), 195, 50);
+        stopButton.setBounds((footerPanel.getWidth() / 2) + 5, (footerPanel.getHeight() / 6), 195, 50);
+        algoSelector1.setBounds(headerPanel.getWidth() - 220, headerPanel.getHeight() - 100, 200, 50);
+        algoSelector2.setBounds(20, headerPanel.getHeight() - 100, 200, 50);
+        algo1Panel.setBounds(0, headerPanel.getHeight(), this.getWidth() / 2, (this.getHeight() / 5) * 3);
+        algo2Panel.setBounds(this.getWidth() / 2, headerPanel.getHeight(), this.getWidth() / 2, (this.getHeight() / 5) * 3);
+        System.out.println(algo1Panel.getWidth() + " : " + algo1Panel.getHeight());
+        System.out.println(this.getWidth() + " : " + this.getHeight());
+        System.out.println(footerPanel.getWidth() + " : " + footerPanel.getHeight());
+
     }
 }

@@ -47,10 +47,6 @@ public class AlgoPanel extends JPanel {
     public void setAlgoType(String algoType) {
         this.algoType = algoType;
     }
-    @Override
-    public int getWidth() {
-        return this.width;
-    }
 
     public void startAlgo(int[] array) {
 
