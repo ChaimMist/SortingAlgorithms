@@ -32,6 +32,18 @@ public class AlgoPanel extends JPanel {
 
     }
 
+
+    public JLabel initJLabel(){
+        JLabel label = new JLabel();
+        label.setBounds(0,30,this.getWidth(), 50);
+        label.setFont(new Font("David",Font.BOLD,40));
+        label.setForeground(Color.WHITE);
+        label.setHorizontalAlignment(JTextField.CENTER);
+        this.add(label);
+        label.setVisible(true);
+        return label;
+    }
+
     public void setAlgoType(String algoType) {
         this.algoType = algoType;
     }
@@ -50,10 +62,10 @@ public class AlgoPanel extends JPanel {
                 bubbleSort.start(buttons, array);
                 break;
             case "Selection Sort":
-                animateSelectionSort();
+                paintArrayBoxes(array);
                 break;
             case "Insertion Sort":
-                animateInsertionSort();
+                paintArrayBoxes(array);
                 break;
         }
     }

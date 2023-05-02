@@ -152,6 +152,16 @@ public class InterfacePanel extends JPanel implements ActionListener {
         algo2Panel.resetArray();
     }
 
+    public JComboBox<String> initJComboBox(int x, int y){
+        JComboBox<String> box = new JComboBox<>(algoList);
+        box.setBounds(x,y, 200, 50);
+        box.setFont(new Font("David",Font.BOLD,20));
+        box.setForeground(Color.WHITE);
+        this.add(box);
+        box.setVisible(true);
+        return box;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
