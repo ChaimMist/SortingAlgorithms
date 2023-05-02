@@ -1,10 +1,7 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 
 
 public class InterfacePanel extends JPanel implements ActionListener {
@@ -14,8 +11,9 @@ public class InterfacePanel extends JPanel implements ActionListener {
     private JButton stopButton;
     private JComboBox<String> algoSelector1;
     private int[] array;
-    private final AlgoPanel algo1Panel;
-    private final AlgoPanel algo2Panel;
+    private AlgoPanel algo1Panel;
+    private AlgoPanel algo2Panel;
+    private JPanel headerPanel, footerPanel;
     private final JLabel title = new JLabel("Sorting Algorithm Visualization");
     private JTextField input;
 
@@ -32,21 +30,23 @@ public class InterfacePanel extends JPanel implements ActionListener {
 
 
         //Create 4 panels
-        JPanel headerPanel = createPanel(0, 0, Def.WIN_DIM.width, Def.WIN_DIM.height / 5, new Color(24, 23, 23), BorderFactory.createBevelBorder(1));
-        JPanel footerPanel = createPanel(0, Def.WIN_DIM.height - Def.WIN_DIM.height / 5, Def.WIN_DIM.width, Def.WIN_DIM.height / 5, new Color(23, 22, 22), BorderFactory.createBevelBorder(1));
+        headerPanel = createPanel(0, 0, Def.WIN_DIM.width, Def.WIN_DIM.height / 5, new Color(24, 23, 23), BorderFactory.createBevelBorder(1));
+        footerPanel = createPanel(0, Def.WIN_DIM.height - Def.WIN_DIM.height / 5, Def.WIN_DIM.width, Def.WIN_DIM.height / 5, new Color(23, 22, 22), BorderFactory.createBevelBorder(1));
         algo1Panel = new AlgoPanel(0, headerPanel.getHeight(), Def.WIN_DIM.width / 2, headerPanel.getHeight() * 3, new Color(30, 13, 35), BorderFactory.createBevelBorder(1));
         algo2Panel = new AlgoPanel(algo1Panel.getWidth(), headerPanel.getHeight(), Def.WIN_DIM.width / 2, (Def.WIN_DIM.height / 5) * 3, new Color(30, 13, 35), BorderFactory.createBevelBorder(1));
 
         //Create 2 combo boxes
         algoSelector1 = initJComboBox(headerPanel.getWidth() - 220, headerPanel.getHeight() - 100);
-        algoSelector2 = initJComboBox( 20, headerPanel.getHeight() - 100);
+        algoSelector2 = initJComboBox(20, headerPanel.getHeight() - 100);
 
         //Create input text field
         input = creatInput(footerPanel.getWidth() / 2 - 200, 3 * (footerPanel.getHeight() / 6), 400, 50, new Color(255, 255, 255), "ex: 1,2,3,4,5...");
 
         //Add buttons to footer panel
-        footerPanel.add(creatButton("Start", (footerPanel.getWidth() / 2) - 200, (footerPanel.getHeight() / 6), 195, 50, new Color(100, 200, 30)));
-        footerPanel.add(creatButton("Stop", (footerPanel.getWidth() / 2) + 5, (footerPanel.getHeight() / 6), 195, 50, new Color(100, 20, 30)));
+        startButton = creatButton("Start", (footerPanel.getWidth() / 2) - 200, (footerPanel.getHeight() / 6), 195, 50, new Color(100, 200, 30));
+        stopButton = creatButton("Stop", (footerPanel.getWidth() / 2) + 5, (footerPanel.getHeight() / 6), 195, 50, new Color(100, 20, 30));
+        footerPanel.add(startButton);
+        footerPanel.add(stopButton);
         footerPanel.add(input);
         headerPanel.add(title);
 
@@ -154,10 +154,10 @@ public class InterfacePanel extends JPanel implements ActionListener {
         algo2Panel.resetArray();
     }
 
-    public JComboBox<String> initJComboBox(int x, int y){
+    public JComboBox<String> initJComboBox(int x, int y) {
         JComboBox<String> box = new JComboBox<>(algoList);
-        box.setBounds(x,y, 200, 50);
-        box.setFont(new Font("David",Font.BOLD,20));
+        box.setBounds(x, y, 200, 50);
+        box.setFont(new Font("David", Font.BOLD, 20));
         box.setForeground(Color.WHITE);
         this.add(box);
         box.setVisible(true);
