@@ -7,14 +7,12 @@ import java.util.Arrays;
 
 public class InterfacePanel extends JPanel implements ActionListener {
     private final String[] algoList = {"Bubble Sort", "Insertion Sort", "Selection Sort", "Merge Sort", "Quick Sort"};
-    private JComboBox<String> algoSelector2;
-    private JButton startButton;
-    private JButton stopButton;
-    private JComboBox<String> algoSelector1;
+    private final JComboBox<String> algoSelector1, algoSelector2;
+    private final JButton startButton, stopButton;
     private int[] array;
-    private AlgoPanel algo1Panel;
-    private AlgoPanel algo2Panel;
-    private JPanel headerPanel, footerPanel;
+    private JLabel algoTitle1, algoTitle2;
+    private final AlgoPanel algo1Panel, algo2Panel;
+    private final JPanel headerPanel, footerPanel;
     private final JLabel title = new JLabel("Sorting Algorithm Visualization");
     private final JTextField input;
 
@@ -43,6 +41,11 @@ public class InterfacePanel extends JPanel implements ActionListener {
         //Create input text field
         input = creatInput(footerPanel.getWidth() / 2 - 200, 3 * (footerPanel.getHeight() / 6), 400, 50, new Color(255, 255, 255), "ex: 1,2,3,4,5...");
 
+        //
+        algoTitle1 = initJLabel(0, headerPanel.getHeight() - 50);
+        algoTitle2 = initJLabel(algo2Panel.getX(), headerPanel.getHeight() - 50);
+
+
         //Add buttons to footer panel
         startButton = creatButton("Start", (footerPanel.getWidth() / 2) - 200, (footerPanel.getHeight() / 6), 195, 50, new Color(100, 200, 30));
         stopButton = creatButton("Stop", (footerPanel.getWidth() / 2) + 5, (footerPanel.getHeight() / 6), 195, 50, new Color(100, 20, 30));
@@ -56,6 +59,10 @@ public class InterfacePanel extends JPanel implements ActionListener {
         this.add(algo1Panel);
         this.add(algo2Panel);
         this.add(footerPanel);
+
+        //Add title to headerPanel
+        headerPanel.add(algoTitle1);
+        headerPanel.add(algoTitle2);
 
     }
 
@@ -166,6 +173,17 @@ public class InterfacePanel extends JPanel implements ActionListener {
         footerPanel.add(box);
         box.setVisible(true);
         return box;
+    }
+
+    public JLabel initJLabel(int x, int y) {
+        JLabel label = new JLabel();
+        label.setBounds(x, y, algo2Panel.getWidth(), 50);
+        label.setFont(new Font("David", Font.BOLD, 40));
+        label.setForeground(Color.WHITE);
+        label.setHorizontalAlignment(JTextField.CENTER);
+        this.add(label);
+        label.setVisible(true);
+        return label;
     }
 
     @Override

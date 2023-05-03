@@ -44,11 +44,12 @@ public class AlgoPanel extends JPanel {
                 paintArrayBoxes(array, this.width / 2 - array.length * 90 / 2, this.height/2,90,10);
                 bubbleSort.start(buttons, array);
                 break;
-            case "Selection Sort":
-                paintArrayBoxes(array);
+            case "Merge Sort":
+                MergeSort mergeSort = new MergeSort(def);
+                mergeSort.start(buttons, array);
+                paintArrayBoxes(array,this.width / 2 - array.length * 60 / 2,20,60,1);
                 break;
             case "Insertion Sort":
-                paintArrayBoxes(array);
                 break;
         }
     }
@@ -57,7 +58,7 @@ public class AlgoPanel extends JPanel {
         this.buttons = new JButton[array.length];
         for (int i = 0; i < array.length; i++) {
             buttons[i] = new JButton(String.valueOf(array[i]));
-            buttons[i].setBounds(i * 100 + startingX, 250, 90, 90);
+            buttons[i].setBounds(i *(size + margin) +x, y, size, size);
             buttons[i].setForeground(Color.WHITE);
             buttons[i].setFont(new Font("David", Font.BOLD, 20));
             buttons[i].setBackground(Def.LIGHT_BLUE);
