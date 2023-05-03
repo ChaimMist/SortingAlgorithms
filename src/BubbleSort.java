@@ -11,7 +11,6 @@ public class BubbleSort {
     }
 
 
-
     public void start(JButton[] buttons, int[] array) {
         new Thread(() -> {
             boolean swapped = true;
@@ -75,5 +74,4 @@ public class BubbleSort {
         } catch (Exception ignored) {
         }
     }
-
 }

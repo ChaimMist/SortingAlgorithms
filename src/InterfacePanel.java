@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Arrays;
 
 
 public class InterfacePanel extends JPanel implements ActionListener {
@@ -15,7 +16,7 @@ public class InterfacePanel extends JPanel implements ActionListener {
     private AlgoPanel algo2Panel;
     private JPanel headerPanel, footerPanel;
     private final JLabel title = new JLabel("Sorting Algorithm Visualization");
-    private JTextField input;
+    private final JTextField input;
 
     public InterfacePanel() {
         //create Main panel
@@ -36,8 +37,8 @@ public class InterfacePanel extends JPanel implements ActionListener {
         algo2Panel = new AlgoPanel(algo1Panel.getWidth(), headerPanel.getHeight(), Def.WIN_DIM.width / 2, (Def.WIN_DIM.height / 5) * 3, new Color(30, 13, 35), BorderFactory.createBevelBorder(1));
 
         //Create 2 combo boxes
-        algoSelector1 = initJComboBox(headerPanel.getWidth() - 220, headerPanel.getHeight() - 100);
-        algoSelector2 = initJComboBox(20, headerPanel.getHeight() - 100);
+        algoSelector1 = initJComboBox(20, headerPanel.getHeight() - 100);
+        algoSelector2 = initJComboBox(headerPanel.getWidth() - 220, headerPanel.getHeight() - 100);
 
         //Create input text field
         input = creatInput(footerPanel.getWidth() / 2 - 200, 3 * (footerPanel.getHeight() / 6), 400, 50, new Color(255, 255, 255), "ex: 1,2,3,4,5...");
@@ -141,11 +142,14 @@ public class InterfacePanel extends JPanel implements ActionListener {
 
     public void startSorting() {
         AlgoPanel.runAlgo = true;
-        algo1Panel.setAlgoType("Bubble Sort");
-        algo1Panel.startAlgo(array);
+        algo1Panel.setAlgoType(algoSelector1.getSelectedItem().toString());
+        algoTitle1.setText(algoSelector1.getSelectedItem().toString());
+        algo1Panel.startAlgo(Arrays.copyOf(array, array.length));
 
-        algo2Panel.setAlgoType("Bubble Sort");
-        algo2Panel.startAlgo(array);
+
+        algo2Panel.setAlgoType(algoSelector2.getSelectedItem().toString());
+        algoTitle2.setText(algoSelector2.getSelectedItem().toString());
+        algo2Panel.startAlgo(Arrays.copyOf(array, array.length));
     }
 
     public void stopSorting() {
@@ -159,7 +163,7 @@ public class InterfacePanel extends JPanel implements ActionListener {
         box.setBounds(x, y, 200, 50);
         box.setFont(new Font("David", Font.BOLD, 20));
         box.setForeground(Color.WHITE);
-        this.add(box);
+        footerPanel.add(box);
         box.setVisible(true);
         return box;
     }
@@ -191,13 +195,13 @@ public class InterfacePanel extends JPanel implements ActionListener {
         input.setBounds(footerPanel.getWidth() / 2 - 200, 3 * (footerPanel.getHeight() / 6), 400, 50);
         startButton.setBounds((footerPanel.getWidth() / 2) - 200, (footerPanel.getHeight() / 6), 195, 50);
         stopButton.setBounds((footerPanel.getWidth() / 2) + 5, (footerPanel.getHeight() / 6), 195, 50);
-        algoSelector1.setBounds(headerPanel.getWidth() - 220, headerPanel.getHeight() - 100, 200, 50);
-        algoSelector2.setBounds(20, headerPanel.getHeight() - 100, 200, 50);
+        algoSelector1.setBounds(20, footerPanel.getHeight() - 100, 200, 50);
+        algoSelector2.setBounds(footerPanel.getWidth() - 230, footerPanel.getHeight() - 100, 200, 50);
         algo1Panel.setBounds(0, headerPanel.getHeight(), this.getWidth() / 2, (this.getHeight() / 5) * 3);
         algo2Panel.setBounds(this.getWidth() / 2, headerPanel.getHeight(), this.getWidth() / 2, (this.getHeight() / 5) * 3);
-        System.out.println(algo1Panel.getWidth() + " : " + algo1Panel.getHeight());
-        System.out.println(this.getWidth() + " : " + this.getHeight());
-        System.out.println(footerPanel.getWidth() + " : " + footerPanel.getHeight());
 
+        algoTitle1.setBounds(0, headerPanel.getHeight() - 50, algo1Panel.getWidth(), 50);
+        algoTitle2.setBounds(headerPanel.getWidth() / 2, headerPanel.getHeight() - 50, algo1Panel.getWidth(), 50);
+        //1,2,3,3,2,1,3,44
     }
 }

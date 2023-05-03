@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AlgoPanel extends JPanel {
 
@@ -9,7 +11,7 @@ public class AlgoPanel extends JPanel {
     public static boolean runAlgo = false;
     private final BubbleSort bubbleSort = new BubbleSort(def);
 
-    private JLabel algoTitle;
+
     private JButton[] buttons;
     private int x, y, width, height;
     private Color color;
@@ -28,33 +30,18 @@ public class AlgoPanel extends JPanel {
         this.setBackground(color);
         this.setBorder(border);
         this.setLayout(null);
-        this.algoTitle = initJLabel();
 
     }
 
-
-    public JLabel initJLabel(){
-        JLabel label = new JLabel();
-        label.setBounds(0,30,this.getWidth(), 50);
-        label.setFont(new Font("David",Font.BOLD,40));
-        label.setForeground(Color.WHITE);
-        label.setHorizontalAlignment(JTextField.CENTER);
-        this.add(label);
-        label.setVisible(true);
-        return label;
-    }
 
     public void setAlgoType(String algoType) {
         this.algoType = algoType;
     }
 
     public void startAlgo(int[] array) {
-
-
         switch (this.algoType) {
             case "Bubble Sort":
-                algoTitle.setText("Bubble Sort");
-                paintArrayBoxes(array);
+                paintArrayBoxes(array, this.width / 2 - array.length * 90 / 2, this.height/2,90,10);
                 bubbleSort.start(buttons, array);
                 break;
             case "Selection Sort":
@@ -66,12 +53,8 @@ public class AlgoPanel extends JPanel {
         }
     }
 
-    private void paintArrayBoxes(int[] array) {
-        buttons = new JButton[array.length];
-        int buttonsContainerWidth = array.length * 100;
-        int startingX = this.width / 2 - buttonsContainerWidth / 2;
-
-        System.out.println(startingX);
+    private void paintArrayBoxes(int[] array, int x, int y, int size, int margin) {
+        this.buttons = new JButton[array.length];
         for (int i = 0; i < array.length; i++) {
             buttons[i] = new JButton(String.valueOf(array[i]));
             buttons[i].setBounds(i * 100 + startingX, 250, 90, 90);
